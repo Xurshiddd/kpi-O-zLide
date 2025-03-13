@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -36,22 +37,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-//        dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required|string|min:9|max:13',
-            'password' => 'required|min:6',
-            'roles' => 'required|array'
-        ]);
-        $user = User::create([
-            'name' => $request->name,
-            'phone' => '+998'.trim($request->phone),
-            'password' => Hash::make($request->password),
-            'is_student' => $request->is_student ? 1 : 0,
-        ]);
-        $user->syncRoles($request->roles);
+        $this->userService->store($request);
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 

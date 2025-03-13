@@ -1,50 +1,51 @@
 @extends('layouts.admin')
-@section('h1')
-    Roles
-@endsection
-@section('')
-@endsection
+
 @section('content')
-    <a href="/admin/roles/create" class="btn btn-success">Qo'shish</a>
-    <div>
-        <div class="">
-            <!--   Kitchen Sink -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Roles
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nomi</th>
-                                <th>Xarakat</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($roles as $role)
-                                <tr>
-                                    <td>{{ $role->id }}</td>
-                                    <td>{{ $role->name }}</td>
-                                    <td style="display: flex; justify-content: space-around">
-                                        <a href="{{ route('roles.edit', $role->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a href="{{ route('roles.show', $role->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" style="border: none; background-color: white"><i class="fa-solid fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- End  Kitchen Sink -->
+    <div class="">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-gray-800">Rollar</h2>
+            <a href="/admin/roles/create"
+               class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition duration-200">
+                + Qo'shish
+            </a>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="w-full text-sm text-left text-gray-600">
+                <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3">#</th>
+                    <th class="px-6 py-3">Nomi</th>
+                    <th class="px-6 py-3">Xarakat</th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                @foreach($roles as $role)
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-6 py-4">{{ $role->id }}</td>
+                        <td class="px-6 py-4">{{ $role->name }}</td>
+                        <td class="px-6 py-4 flex space-x-4">
+                            <a href="{{ route('roles.edit', $role->id) }}"
+                               class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                                Edit
+                            </a>
+                            <a href="{{ route('roles.show', $role->id) }}"
+                               class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                                Show
+                            </a>
+                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST"
+                                  onsubmit="return confirm('Rostdan ham o‘chirmoqchimisiz?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

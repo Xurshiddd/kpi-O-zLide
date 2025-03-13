@@ -15,4 +15,10 @@ class UserRepository
     {
         return User::with('roles')->orderBy('id', 'asc')->paginate(15);
     }
+
+    public function save($data)
+    {
+        $user = User::create($data);
+        return $user;
+    }
 }

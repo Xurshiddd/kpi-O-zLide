@@ -25,8 +25,8 @@
             </div>
 
             <div>
-                <input role="submit"
-                        class=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded-md transition duration-200" value="Saqlash">
+                <button
+                    class=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-2 rounded-md transition duration-200">Saqlash</button>
                 <a href="{{ route('permissions.index') }}" role="button" class="px-6  bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 rounded-md transition duration-200">Ortga</a>
             </div>
         </form>

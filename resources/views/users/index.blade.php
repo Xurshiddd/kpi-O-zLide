@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('content')
-    <a href="/admin/users/create" class="btn btn-success max-w-[10%]">
-        Qo'shish
+    <a href="/admin/users/create"
+       class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition duration-200 w-[10%]">
+        + Qo'shish
     </a>
-
     <div class="">
         @if ($message = Session::get('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4">

@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('categories.index', ['categories' => Category::all()]);
     }
 
     /**
@@ -20,7 +20,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $category = new Category();
+        return view('categories.create', compact('category'));
     }
 
     /**
@@ -28,7 +29,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        Category::create($request->all());
+        return redirect()->route('categories.index')->with('success', 'Category created!');
     }
 
     /**
@@ -44,7 +49,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('categories.create', compact('category'));
     }
 
     /**
@@ -52,7 +57,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $category->update($request->all());
+        return redirect()->route('categories.index')->with('success', 'Category updated!');
     }
 
     /**
@@ -60,6 +69,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'Category deleted!');
     }
 }
