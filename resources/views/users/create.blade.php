@@ -18,10 +18,13 @@
 
         <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Foydalanuvchi qo‘shish</h2>
-
+            @if($errors->any())
+                @foreach($errors->all() as $msg)
+                    <span class="text-red-500">{{ $msg }}</span>
+                @endforeach
+            @endif
             <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 @csrf
-
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Ism</label>
                     <input name="first_name" type="text" required placeholder="Ismingizni kiriting"
