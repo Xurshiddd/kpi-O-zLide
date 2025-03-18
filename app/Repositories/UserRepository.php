@@ -32,7 +32,6 @@ class UserRepository
         $user->update($data);
         return $user;
     }
-
     public function getById($id)
     {
         $user = User::find($id);

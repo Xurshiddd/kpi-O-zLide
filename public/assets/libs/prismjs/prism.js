@@ -492,7 +492,7 @@ var Prism = (function (_self) {
 		 * It fetches all the elements that have a `.language-xxxx` class and then calls {@link Prism.highlightElement} on
 		 * each one of them.
 		 *
-		 * This is equivalent to `Prism.highlightAllUnder(document, async, callback)`.
+		 * This is equivalent to `Prism.highlightAllUnder(documents, async, callback)`.
 		 *
 		 * @param {boolean} [async=false] Same as in {@link Prism.highlightAllUnder}.
 		 * @param {HighlightCallback} [callback] Same as in {@link Prism.highlightAllUnder}.
@@ -1187,8 +1187,8 @@ var Prism = (function (_self) {
 	}
 
 	if (!_.manual) {
-		// If the document state is "loading", then we'll use DOMContentLoaded.
-		// If the document state is "interactive" and the prism.js script is deferred, then we'll also use the
+		// If the documents state is "loading", then we'll use DOMContentLoaded.
+		// If the documents state is "interactive" and the prism.js script is deferred, then we'll also use the
 		// DOMContentLoaded event because there might be some plugins or languages which have also been deferred and they
 		// might take longer one animation frame to execute which can create a race condition where only some plugins have
 		// been loaded when Prism.highlightAll() is executed, depending on how fast resources are loaded.
@@ -1922,7 +1922,7 @@ Prism.languages.js = Prism.languages.javascript;
 		 *
 		 * Note: Elements which are already loaded or currently loading will not be touched by this method.
 		 *
-		 * @param {ParentNode} [container=document]
+		 * @param {ParentNode} [container=documents]
 		 */
 		highlight: function highlight(container) {
 			var elements = (container || document).querySelectorAll(SELECTOR);

@@ -89,29 +89,15 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="#"
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('documents.index') }}"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-                            <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                            <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0"></path>
-                            <path d="M12 2l0 2"></path>
-                            <path d="M12 20l0 2"></path>
-                            <path d="M20 12l2 0"></path>
-                            <path d="M2 12l2 0"></path>
-                        </svg><span>Manzillar</span>
+                        <i class="fa-solid fa-file-contract"></i><span>Xujjatlar</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="#"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-                            <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
-                            <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                            <path d="M15 3v4"></path>
-                            <path d="M7 3v4"></path>
-                            <path d="M3 11h16"></path>
-                            <path d="M18 16.496v1.504l1 1"></path>
-                        </svg><span>Amaliyot davri</span>
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('criterion.index') }}">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <span>Mezon</span>
                     </a>
                 </li>
                 <li class="text-xs font-bold mb-4 mt-8">
