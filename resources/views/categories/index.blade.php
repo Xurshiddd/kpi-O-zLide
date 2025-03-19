@@ -2,17 +2,17 @@
 
 @section('content')
     <div>
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-4 dark:bg-gray-900 text-black dark:text-white">
             <h2 class="text-xl font-semibold">Categories</h2>
             <a href="{{ route('categories.create') }}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
                 Qo'shish
             </a>
         </div>
 
-        <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 dark:bg-gray-700 text-black dark:text-white">
             <table class="w-full border-collapse border border-gray-300">
                 <thead>
-                <tr class="bg-gray-100">
+                <tr class="bg-gray-100 dark:bg-gray-700 text-black dark:text-white">
                     <th class="border border-gray-300 px-4 py-2">#</th>
                     <th class="border border-gray-300 px-4 py-2">Nomi</th>
                     <th class="border border-gray-300 px-4 py-2">Harakat</th>

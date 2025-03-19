@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="bg-white shadow-md rounded-lg p-6">
+    <div class="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700 text-black dark:text-white">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Yangi hujjat qo‘shish</h2>
 
         @if ($errors->any())
@@ -13,16 +13,23 @@
                 </ul>
             </div>
         @endif
-
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4 relative" role="alert">
+                <span class="block sm:inline">Siz {{ session('success') }} ballgacha olishingiz mumkun!!!</span>
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+                    ✖
+                </button>
+            </div>
+        @endif
         <form action="{{ route('documents.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Criteria lar -->
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Hujjatlar</h3>
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-4 dark:bg-gray-700 text-black dark:text-white">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 dark:bg-gray-700 text-black dark:text-white">Hujjatlar</h3>
                 @if(isset($criterion))
                     @foreach($criterion as $criteria)
-                        <div class="mb-4 p-3 border rounded-md bg-white shadow-sm">
+                        <div class="mb-4 p-3 border rounded-md bg-white shadow-sm ">
                             <h4 class="font-semibold text-gray-800 mb-2">{{ $criteria->name }}</h4>
 
                             <input type="hidden" name="criteria_id[]" value="{{ $criteria->id }}">

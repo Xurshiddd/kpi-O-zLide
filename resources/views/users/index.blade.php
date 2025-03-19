@@ -11,7 +11,7 @@
             </div>
         @endif
 
-        <div class="bg-white shadow-md rounded-lg overflow-hidden w-full">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden w-full dark:bg-gray-700 text-black dark:text-white">
             <div class="bg-gray-800 text-white px-6 py-3 text-lg font-semibold">
                 Users
             </div>
@@ -29,7 +29,7 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     @foreach($users as $key => $user)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 dark:bg-gray-700 text-black dark:text-white">
                             <td class="px-6 py-4">{{ $key + 1 }}</td>
                             <td>
                                 <img src="{{ $user->photo ? asset($user->photo) : asset('assets/images/profile/user-1.jpg') }}"
@@ -76,7 +76,7 @@
     <!-- User Details Modal -->
     <!-- User Details Modal -->
     <div id="userModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg w-[400px] p-6">
+        <div class="bg-white rounded-lg shadow-lg w-[400px] p-6 ">
             <h2 class="text-xl font-semibold text-gray-800 text-center">Foydalanuvchi Tafsilotlari</h2>
             <div class="mt-4 text-center">
                 <img id="modalPhoto" class="w-24 h-24 rounded-full mx-auto object-cover border">

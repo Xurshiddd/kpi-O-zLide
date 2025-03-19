@@ -20,6 +20,6 @@ class Document extends Model
     }
     public function criterion(): BelongsTo
     {
-        return $this->belongsTo(Criterion::class);
+        return $this->belongsTo(Criterion::class, 'criteria_id');
     }
 }

@@ -5,9 +5,9 @@
        class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition duration-200 w-[10%]">
         Ortga
     </a>
-        <div class=" bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6">
+        <div class=" bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 dark:bg-gray-700 text-black dark:text-white">
 
-            <h2 class="text-xl font-semibold mb-4">{{ $category->id ? 'Edit Category' : 'Create Category' }}</h2>
+            <h2 class="text-xl font-semibold mb-4 dark:bg-gray-700 text-black dark:text-white">{{ $category->id ? 'Edit Category' : 'Create Category' }}</h2>
 
             <form role="form" action="{{ $category->id ? route('categories.update', $category->id) : route('categories.store') }}" method="POST">
                 @csrf
@@ -17,7 +17,7 @@
 
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium mb-2">Name</label>
-                    <input class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2"
+                    <input class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 text-black dark:text-white"
                            name="name"
                            type="text"
                            value="{{ old('name', $category->name ?? '') }}">

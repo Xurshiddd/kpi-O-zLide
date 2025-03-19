@@ -1,12 +1,7 @@
 @extends('layouts.admin')
-@section('h1')
-    Permissions
-@endsection
-@section('')
-@endsection
 @section('content')
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+    <div class="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700 text-black dark:text-white">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 dark:bg-gray-700 text-black dark:text-white">
             {{ $permission->id ? 'Ruxsatni Tahrirlash' : 'Yangi Ruxsat Qo‘shish' }}
         </h2>
 
@@ -20,7 +15,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Nomi</label>
                 <input type="text" name="name" value="{{ $permission->name }}"
-                       class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                       class="dark:bg-gray-700 text-black dark:text-white mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                        required>
             </div>
 

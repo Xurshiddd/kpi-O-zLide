@@ -39,10 +39,10 @@ class DocumentController extends Controller
     public function store(DocumentSaveRequest $request)
     {
         $saved = $this->documentService->store($request);
-        if($saved === true){
-            return redirect()->back()->with('success', 'Document created successfully');
+        if($saved === false){
+            return redirect()->back()->with('error', $saved);
         }
-        return redirect()->back()->with('error', $saved);
+        return redirect()->back(201)->with('success', $saved);
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <div class=" bg-white shadow-md rounded-lg p-6">
+    <div class=" bg-white shadow-md rounded-lg p-6 dark:bg-gray-700 text-black dark:text-white">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-semibold text-gray-800">Bo'limlar</h2>
             <a href="/admin/criterion/create"
@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                 @foreach($criterions as $criterion)
-                    <tr class="border-b hover:bg-gray-50">
+                    <tr class="border-b hover:bg-gray-50 dark:bg-gray-700 text-black dark:text-white">
                         <td class="px-6 py-4">{{ $criterion->id }}</td>
                         <td class="px-6 py-4">{{ $criterion->name }}</td>
                         <td class="px-6 py-4">{{ $criterion->department->name }}</td>

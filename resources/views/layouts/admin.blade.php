@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html   lang="en" >
-
+<html lang="uz" x-data="{
+    darkMode: localStorage.getItem('darkMode') === 'true' || localStorage.getItem('theme') === 'dark' || localStorage.getItem('appearance') === 'dark'
+}" :class="darkMode ? 'dark' : ''">
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8" />
@@ -22,7 +23,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class=" bg-surface">
+<body class="bg-gray-100 dark:bg-gray-900 text-black dark:text-white transition-colors duration-300">
 <main>
     <!--start the project-->
     <div id="main-wrapper" class=" flex p-5 xl:pr-0">
@@ -33,11 +34,10 @@
             <main class="h-full  max-w-full">
                 <div class="container full-container p-0 flex flex-col gap-6">
                     <!--  Header Start -->
-                    <header class=" bg-white shadow-md rounded-md w-full text-sm py-4 px-6">
+                    <header class=" bg-white shadow-md rounded-md w-full text-sm py-4 px-6 dark:bg-gray-700 text-black dark:text-white p-4">
 
 
                         <!-- ========== HEADER ========== -->
-
                         @include('components.navbar')
                         <!-- ========== END HEADER ========== -->
                     </header>

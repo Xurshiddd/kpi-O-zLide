@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('path')->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('criteria_id')->constrained('criteria');
+            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }

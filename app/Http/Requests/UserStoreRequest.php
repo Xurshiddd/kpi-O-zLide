@@ -27,7 +27,7 @@ class UserStoreRequest extends FormRequest
             'email' => 'nullable|email|unique:users,email',
             'position' => 'nullable|string',
             'region_id' => 'required',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:15048',
             'department_id' => 'required',
             'address' => 'nullable|string',
             'phone' => 'required|string|min:9|max:13|unique:users,phone',
