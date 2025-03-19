@@ -1,6 +1,21 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if ($message = Session::get('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+    @if ($message = Session::get('error'))
+        <div class="bg-green-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+    @if($errors->any())
+        @foreach($errors->all() as $msg)
+            <span class="text-red-500">{{ $msg }}</span>
+        @endforeach
+    @endif
     <div x-data="{ tab: 'info', darkMode: false }" :class="darkMode ? 'bg-gray-600 text-white' : 'bg-white text-gray-900'"
          class="shadow-md rounded-lg p-6 transition-colors duration-300">
         <div class="flex justify-between items-center mb-4">
@@ -63,10 +78,9 @@
         <!-- Sozlamalar -->
         <div x-show="tab === 'settings'" class="p-6">
             <h3 class="text-xl font-semibold mb-4">Profilni tahrirlash</h3>
-            <form action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-400">Ism</label>
