@@ -8,6 +8,7 @@ use App\Http\Controllers\CriterionController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Department;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,6 +36,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     ]);
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/departments-by-category/{categoryId}', [DocumentController::class, 'getDepartmentsByCategory']);
+    Route::get('/users-by-department/{departmentId}', [DocumentController::class, 'getUsersByDepartment']);
+    Route::get('/departments-by-category/{category}', function ($category) {
+        return Department::where('category_id', $category)->get();
+    });
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+
 });
 
 require __DIR__.'/auth.php';

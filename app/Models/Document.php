@@ -11,7 +11,8 @@ class Document extends Model
         'type',
         'path',
         'user_id',
-        'criteria_id'
+        'criteria_id',
+        'score'
     ];
 
     public function user(): BelongsTo

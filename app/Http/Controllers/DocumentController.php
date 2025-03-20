@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DocumentSaveRequest;
+use App\Models\Category;
+use App\Models\Department;
 use App\Models\Document;
+use App\Models\User;
 use App\Repositories\DocumentRepository;
 use App\Services\DocumentService;
 use Illuminate\Http\Request;
@@ -18,12 +21,46 @@ class DocumentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $criterion = $this->documentRepository->getByCritery();
-        return view('documents.index', compact('criterion'));
+        $categories = Category::all();
+        $departments = Department::all();
+
+        $users = User::query();
+
+        if ($request->filled('category_id')) {
+            $users->whereHas('department', function ($query) use ($request) {
+                $query->where('category_id', $request->category_id);
+            });
+        }
+
+        if ($request->filled('department_id')) {
+            $users->where('department_id', $request->department_id);
+        }
+
+        if ($request->filled('search')) {
+            $users->where(function ($query) use ($request) {
+                $query->where('first_name', 'like', "%{$request->search}%")
+                    ->orWhere('last_name', 'like', "%{$request->search}%");
+            });
+        }
+
+        $users = $users->with('department')->paginate(15);
+
+        return view('documents.index', compact('users', 'categories', 'departments'));
+    }
+    public function getDepartmentsByCategory($categoryId)
+    {
+        $departments = Department::where('category_id', $categoryId)->get();
+        return response()->json($departments);
     }
 
+    // 📌 AJAX: Departament bo‘yicha foydalanuvchilarni olish
+    public function getUsersByDepartment($departmentId)
+    {
+        $users = User::where('department_id', $departmentId)->get();
+        return response()->json($users);
+    }
     /**
      * Show the form for creating a new resource.
      */

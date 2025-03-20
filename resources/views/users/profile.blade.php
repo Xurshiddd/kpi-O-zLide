@@ -28,11 +28,11 @@
 
         <!-- Tablar -->
         <div class="border-b flex space-x-4">
-            <button @click="tab = 'info'" :class="tab === 'info' ? 'border-blue-500 text-blue-400' : 'text-gray-400'"
+            <button @click="tab = 'info'" :class="tab === 'info' ? 'border-blue-500 text-blue-400' : 'text-white-400'"
                     class="py-2 px-4 border-b-2 font-medium focus:outline-none">Profil</button>
-            <button @click="tab = 'documents'" :class="tab === 'documents' ? 'border-blue-500 text-blue-400' : 'text-gray-400'"
+            <button @click="tab = 'documents'" :class="tab === 'documents' ? 'border-blue-500 text-blue-400' : 'text-white-400'"
                     class="py-2 px-4 border-b-2 font-medium focus:outline-none">Hujjatlar</button>
-            <button @click="tab = 'settings'" :class="tab === 'settings' ? 'border-blue-500 text-blue-400' : 'text-gray-400'"
+            <button @click="tab = 'settings'" :class="tab === 'settings' ? 'border-blue-500 text-blue-400' : 'text-white-400'"
                     class="py-2 px-4 border-b-2 font-medium focus:outline-none">Sozlamalar</button>
         </div>
 
@@ -65,8 +65,8 @@
                 <ul class="space-y-2">
                     @foreach($user->documents as $document)
                         <li class="flex items-center justify-between p-3 border rounded-md">
-                            <span class="text-gray-700">{{ $document->criterion->name }}</span>
-                            <span class="text-gray-700">{{ $document->criterion->score }}</span>
+                            <span class="text-gray-700" :class="darkMode ? 'bg-gray-600 text-white' : 'bg-white text-gray-900'">{{ $document->criterion->name }}</span>
+                            <span class="text-gray-700" :class="darkMode ? 'bg-gray-600 text-white' : 'bg-white text-gray-900'">{{ $document->score }}</span>
                             <a href="{{ asset($document->path) }}" target="_blank"
                                class="text-blue-400 hover:underline">Ko‘rish</a>
                         </li>

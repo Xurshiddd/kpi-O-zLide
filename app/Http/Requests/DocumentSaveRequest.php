@@ -26,19 +26,45 @@ class DocumentSaveRequest extends FormRequest
             'criteria_id.*' => 'exists:criteria,id',
             'type'          => 'required|array',
             'type.*'        => 'in:file,link',
-            'path'          => 'required|array',
+            'path'          => 'nullable|array',
             'path.*'        => function ($attribute, $value, $fail) {
-                $index = str_replace(['path.', 'path[', ']'], '', $attribute); // Index olish
+                $index = str_replace(['path.', 'path[', ']'], '', $attribute);
+                $type = request()->input("type.$index");
 
-                if (request()->input("type.$index") === 'file') {
-                    if (!is_file($value) || !in_array($value->getClientOriginalExtension(), ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'])) {
-                        $fail("{$index}-mezon uchun noto‘g‘ri fayl formati yuklandi.");
-                    }
+                $today = now(); // Bugungi sana
+                $userId = auth()->id(); // Foydalanuvchi ID
+                $criteriaId = request()->input("criteria_id.$index");
+
+                // 🛑 Ushbu criteria uchun foydalanuvchi shu oyda yuklaganmi?
+                $exists = \App\Models\Document::where('user_id', $userId)
+                    ->where('criteria_id', $criteriaId)
+                    ->whereMonth('created_at', $today->month)
+                    ->whereYear('created_at', $today->year)
+                    ->exists();
+
+                if ($exists) {
+                    $fail("{$criteriaId}-mezon uchun ushbu oyda hujjat allaqachon yuklangan.");
+                    return;
                 }
 
-                if (request()->input("type.$index") === 'link') {
-                    if (!filter_var($value, FILTER_VALIDATE_URL)) {
-                        $fail("{$index}-mezon uchun noto‘g‘ri URL kiritildi.");
+                if ($today->day <= 25) {
+                    $fail("Hujjat yuklash faqat oyning 26-sanasidan boshlab mumkin.");
+                    return;
+                }
+
+                // 📝 Agar path mavjud bo‘lsa, tekshirish!
+                if (!is_null($value)) {
+                    if ($type === 'file') {
+                        if (!($value instanceof \Illuminate\Http\UploadedFile) ||
+                            !in_array($value->getClientOriginalExtension(), ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'])) {
+                            $fail("{$criteriaId}-mezon uchun noto‘g‘ri fayl yuklandi.");
+                        }
+                    }
+
+                    if ($type === 'link') {
+                        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+                            $fail("{$criteriaId}-mezon uchun noto‘g‘ri URL kiritildi.");
+                        }
                     }
                 }
             },

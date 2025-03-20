@@ -12,23 +12,30 @@ class DocumentService
 
     public function store($request)
     {
-        $data = [];
+
         $score = 0;
         try {
-            for ($i = 0; $i < count($request->path); $i++) {
-                $data['type'] = $request->type[$request->criteria_id[$i]];
-                $data['path'] = $this->checkData($request->type[$request->criteria_id[$i]], $request->path[$request->criteria_id[$i]]);
-                $data['user_id'] = auth()->id();
-                $data['criteria_id'] = $request->criteria_id[$i];
-                $this->documentRepository->save($data);
-                $score += (int)Criterion::find($request->criteria_id[$i])->score;
+            foreach ($request->criteria_id as $criteriaId) {
+                if (!empty($request->path[$criteriaId] ?? null)) {
+                    $data = [
+                        'type'        => $request->type[$criteriaId],
+                        'path'        => $this->checkData($request->type[$criteriaId], $request->path[$criteriaId]),
+                        'user_id'     => auth()->id(),
+                        'criteria_id' => $criteriaId,
+                        'score'       => Criterion::find($criteriaId)->score,
+                    ];
+                    $this->documentRepository->save($data);
+                    $score += (int) Criterion::find($criteriaId)->score;
+                }
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             \Log::error($exception->getMessage());
             return false;
         }
         return $score;
     }
+
+
     protected function checkData($type, $path)
     {
 

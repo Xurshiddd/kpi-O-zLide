@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700 text-black dark:text-white">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Yangi hujjat qo‘shish</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4 dark:bg-gray-700 dark:text-white">Yangi hujjat qo‘shish</h2>
 
         @if ($errors->any())
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4">
@@ -26,13 +26,13 @@
 
             <!-- Criteria lar -->
             <div class="bg-gray-50 border border-gray-200 rounded-md p-4 dark:bg-gray-700 text-black dark:text-white">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2 dark:bg-gray-700 text-black dark:text-white">Hujjatlar</h3>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 dark:bg-gray-700 dark:text-white">Hujjatlar</h3>
                 @if(isset($criterion))
                     @foreach($criterion as $criteria)
                         <div class="mb-4 p-3 border rounded-md bg-white shadow-sm ">
                             <h4 class="font-semibold text-gray-800 mb-2">{{ $criteria->name }}</h4>
 
-                            <input type="hidden" name="criteria_id[]" value="{{ $criteria->id }}">
+                            <input type="hidden" name="criteria_id[]" value="{{ $criteria->id }}" class="bg-white dark:bg-gray-700 text-black dark:text-white">
 
                             <div class="flex gap-4 items-center">
                                 <label class="inline-flex items-center">
@@ -49,10 +49,10 @@
 
                             <div class="mt-3">
                                 <input id="fileInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="file"
-                                       class="block w-full p-2 border border-gray-300 rounded-md shadow-sm">
+                                       class="block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
                                 <input id="linkInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="url"
                                        placeholder="Havola kiriting"
-                                       class="hidden block w-full p-2 border border-gray-300 rounded-md shadow-sm">
+                                       class="hidden block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
                             </div>
                         </div>
                     @endforeach
