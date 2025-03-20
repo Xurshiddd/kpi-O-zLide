@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="bg-white shadow-md rounded-lg p-6">
+    <div class="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700 text-black dark:text-white bg-white">
         @if ($message = Session::get('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4">
                 <p>{{ $message }}</p>
@@ -16,8 +16,8 @@
             Ortga
         </a>
 
-        <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Foydalanuvchi qo‘shish</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-md p-4 dark:bg-gray-700 text-black dark:text-white bg-white">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 dark:bg-gray-700 text-black dark:text-white bg-white">Foydalanuvchi qo‘shish</h2>
             @if($errors->any())
                 @foreach($errors->all() as $msg)
                     <span class="text-red-500">{{ $msg }}</span>
@@ -26,38 +26,38 @@
             <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 @csrf
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Ism</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Ism</label>
                     <input name="first_name" type="text" required placeholder="Ismingizni kiriting"
-                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                           class="dark:bg-gray-700 text-black dark:text-white bg-white mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Familya</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Familya</label>
                     <input name="last_name" type="text" placeholder="Familyangizni kiriting"
-                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                           class="dark:bg-gray-700 text-black dark:text-white bg-white mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Lavozim</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Lavozim</label>
                     <input name="position" type="text" placeholder="Lavozimingizni kiriting"
-                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                           class="dark:bg-gray-700 text-black dark:text-white bg-white mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Telefon</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Telefon</label>
                     <input type="tel" id="phone" name="phone" maxlength="9" placeholder="99 123 45 67"
-                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 text-black dark:text-white bg-white">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Email</label>
                     <input name="email" type="email" placeholder="Emailingizni kiriting"
-                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                           class="dark:bg-gray-700 text-black dark:text-white bg-white mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Bo'lim</label>
-                    <select name="department_id" class="w-full p-2 border rounded-md focus:ring focus:ring-blue-200">
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Bo'lim</label>
+                    <select name="department_id" class="w-full p-2 border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 text-black dark:text-white bg-white">
                         <option disabled selected>Bo'limni tanlang</option>
                         @foreach(App\Models\Department::all() as $department)
                             <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -66,8 +66,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Viloyat</label>
-                    <select name="region_id" class="w-full p-2 border rounded-md focus:ring focus:ring-blue-200">
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Viloyat</label>
+                    <select name="region_id" class="w-full p-2 border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 text-black dark:text-white bg-white">
                         <option disabled selected>Viloyatni tanlang</option>
                         @foreach(App\Models\Region::all() as $region)
                             <option value="{{ $region->id }}">{{ $region->name }}</option>
@@ -76,29 +76,29 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Manzil</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Manzil</label>
                     <textarea name="address" placeholder="Manzilingizni kiriting"
-                              class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                              class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 text-black dark:text-white bg-white"></textarea>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Parol</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Parol</label>
                     <input name="password" type="password" required placeholder="Parol kiriting"
-                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                           class="dark:bg-gray-700 text-black dark:text-white bg-white mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Roles</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Roles</label>
                     <select name="roles[]" multiple="multiple"
-                            class="select2 w-full p-2 border rounded-md focus:ring focus:ring-blue-200">
+                            class="select2 w-full p-2 border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 text-black dark:text-white bg-white">
                         @foreach($roles as $role)
-                            <option value="{{ $role->name }}" class="w-full p-2 border rounded-md focus:ring focus:ring-blue-200">{{ $role->name }}</option>
+                            <option value="{{ $role->name }}" class="w-full p-2 border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 text-black dark:text-white bg-white">{{ $role->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700">Foto</label>
+                    <label class="dark:bg-gray-700 text-black dark:text-white bg-white block text-sm font-medium text-gray-700">Foto</label>
                     <input id="photo" name="photo" type="file" accept="image/*"
                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
 

@@ -36,13 +36,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     ]);
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/departments-by-category/{categoryId}', [DocumentController::class, 'getDepartmentsByCategory']);
     Route::get('/users-by-department/{departmentId}', [DocumentController::class, 'getUsersByDepartment']);
     Route::get('/departments-by-category/{category}', function ($category) {
         return Department::where('category_id', $category)->get();
     });
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-
+    Route::get('documents-show/{user}', [DocumentController::class, 'show'])->name('user-documents.show');
 });
 
 require __DIR__.'/auth.php';

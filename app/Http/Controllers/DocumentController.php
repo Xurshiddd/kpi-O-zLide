@@ -25,28 +25,7 @@ class DocumentController extends Controller
     {
         $categories = Category::all();
         $departments = Department::all();
-
-        $users = User::query();
-
-        if ($request->filled('category_id')) {
-            $users->whereHas('department', function ($query) use ($request) {
-                $query->where('category_id', $request->category_id);
-            });
-        }
-
-        if ($request->filled('department_id')) {
-            $users->where('department_id', $request->department_id);
-        }
-
-        if ($request->filled('search')) {
-            $users->where(function ($query) use ($request) {
-                $query->where('first_name', 'like', "%{$request->search}%")
-                    ->orWhere('last_name', 'like', "%{$request->search}%");
-            });
-        }
-
-        $users = $users->with('department')->paginate(15);
-
+        $users = $this->documentService->index($request);
         return view('documents.index', compact('users', 'categories', 'departments'));
     }
     public function getDepartmentsByCategory($categoryId)
@@ -85,9 +64,9 @@ class DocumentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Document $document)
+    public function show($user, $request)
     {
-        //
+        return view('documents.show', ['user' => $this->documentService->documentShow($user, $request)]);
     }
 
     /**

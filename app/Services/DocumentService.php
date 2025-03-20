@@ -2,13 +2,41 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\Criterion;
+use App\Models\Department;
 use App\Models\Document;
+use App\Models\User;
 use App\Repositories\DocumentRepository;
 
 class DocumentService
 {
     public function __construct(public DocumentRepository $documentRepository){}
+
+    public function index($request)
+    {
+        $users = User::query();
+
+        if ($request->filled('category_id')) {
+            $users->whereHas('department', function ($query) use ($request) {
+                $query->where('category_id', $request->category_id);
+            });
+        }
+
+        if ($request->filled('department_id')) {
+            $users->where('department_id', $request->department_id);
+        }
+
+        if ($request->filled('search')) {
+            $users->where(function ($query) use ($request) {
+                $query->where('first_name', 'like', "%{$request->search}%")
+                    ->orWhere('last_name', 'like', "%{$request->search}%");
+            });
+        }
+
+        $users = $users->with(['department', 'documents'])->whereNotIn('id', [1])->paginate(15);
+        return $users;
+    }
 
     public function store($request)
     {
@@ -33,6 +61,20 @@ class DocumentService
             return false;
         }
         return $score;
+    }
+
+    public function documentShow($user, $request)
+    {
+        $query = User::with(['documents' => function ($q) use ($request) {
+            if ($request->filled('year')) {
+                $q->whereYear('created_at', $request->year);
+            }
+            if ($request->filled('month')) {
+                $q->whereMonth('created_at', $request->month);
+            }
+        }])->find($user);
+
+        return $query;
     }
 
 

@@ -67,6 +67,6 @@ class User extends Authenticatable
     }
     public function documents(): HasMany
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'user_id');
     }
 }
