@@ -34,14 +34,7 @@
                         <i class="ti ti-user  text-xl "></i>
                         <p class="text-sm ">My Profile</p>
                     </a>
-                    <a href="javscript:void(0)" class="flex gap-2 items-center font-medium px-4 py-1.5 hover:bg-gray-200 text-gray-400">
-                        <i class="ti ti-mail  text-xl"></i>
-                        <p class="text-sm ">My Account</p>
-                    </a>
-                    <a href="javscript:void(0)" class="flex gap-2 items-center font-medium px-4 py-1.5 hover:bg-gray-200 text-gray-400">
-                        <i class="ti ti-list-check  text-xl "></i>
-                        <p class="text-sm ">My Task</p>
-                    </a>
+
                     <div class="px-4 mt-[7px] grid">
                         <form method="post" action="{{ route('logout') }}">
                             @csrf

@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\Document;
 use App\Models\User;
 use App\Repositories\DocumentRepository;
+use Illuminate\Http\Request;
 
 class DocumentService
 {

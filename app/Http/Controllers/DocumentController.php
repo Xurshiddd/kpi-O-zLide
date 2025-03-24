@@ -64,7 +64,7 @@ class DocumentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($user, $request)
+    public function show($user, Request $request)
     {
         return view('documents.show', ['user' => $this->documentService->documentShow($user, $request)]);
     }
@@ -84,6 +84,20 @@ class DocumentController extends Controller
     {
         //
     }
+    public function score(Request $request)
+    {
+        $request->validate([
+            'document_id' => 'required|exists:documents,id',
+            'score' => 'required|numeric|min:0|max:100',
+        ]);
+
+        $document = Document::find($request->document_id);
+        $document->score = $request->score;
+        $document->save();
+
+        return redirect()->back()->with('success', 'Hujjat muvaffaqiyatli baholandi!');
+    }
+
 
     /**
      * Remove the specified resource from storage.

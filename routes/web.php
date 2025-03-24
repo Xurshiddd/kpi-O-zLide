@@ -41,6 +41,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return Department::where('category_id', $category)->get();
     });
     Route::get('documents-show/{user}', [DocumentController::class, 'show'])->name('user-documents.show');
+    Route::post('/document-score', [DocumentController::class, 'score'])->name('document.score');
+
 });
 
 require __DIR__.'/auth.php';

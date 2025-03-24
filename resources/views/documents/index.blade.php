@@ -52,6 +52,7 @@
                     <th class="p-3 border border-gray-300">Familiya</th>
                     <th class="p-3 border border-gray-300">Bo'lim</th>
                     <th class="p-3 border border-gray-300">Umumiy Ball</th>
+                    <th class="p-3 border border-gray-300">Tasdiqlanish</th>
                     <th class="p-3 border border-gray-300">Amallar</th>
                 </tr>
                 </thead>
@@ -63,12 +64,28 @@
                         <td class="p-3 border border-gray-300 text-center">{{ $user->last_name }}</td>
                         <td class="p-3 border border-gray-300 text-center">{{ $user->department->name }}</td>
                         <td class="p-3 border border-gray-300 text-center">{{ optional($user->documents)->sum('score') }}</td>
+
+                        <!-- Tasdiqlash yoki o'zgartirilgan sana ko'rsatish -->
+                        <td class="p-3 border border-gray-300 text-center">
+                            @if($user->created_at->ne($user->updated_at))
+                                <span class="px-2 py-1 bg-yellow-500 text-white rounded-md">
+                O'zgartirilgan: {{ $user->updated_at->format('Y-m-d H:i') }}
+            </span>
+                            @else
+                                <span class="px-2 py-1 bg-red-500 text-white rounded-md">
+                Tasdiqlanmagan
+            </span>
+                            @endif
+                        </td>
+
                         <td class="p-3 border border-gray-300 flex justify-around">
-                            <a href="{{ route('user-documents.show', $user->id) }}" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                            <a href="{{ route('user-documents.show', $user->id) }}"
+                               class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                                 Kirish
                             </a>
                             <form action="">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                                <button type="submit"
+                                        class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                                     Tasdiqlash
                                 </button>
                             </form>
@@ -76,9 +93,10 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="p-3 text-center text-gray-400">Foydalanuvchi topilmadi</td>
+                        <td colspan="7" class="text-center p-4 text-gray-500">Foydalanuvchilar topilmadi.</td>
                     </tr>
                 @endforelse
+
                 </tbody>
             </table>
         </div>
