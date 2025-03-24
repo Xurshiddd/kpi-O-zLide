@@ -86,15 +86,10 @@ class DocumentController extends Controller
     }
     public function score(Request $request)
     {
-        $request->validate([
-            'document_id' => 'required|exists:documents,id',
-            'score' => 'required|numeric|min:0|max:100',
-        ]);
-
-        $document = Document::find($request->document_id);
-        $document->score = $request->score;
-        $document->save();
-
+        $status = $this->documentService->confirm($request);
+        if($status === false){
+            return redirect()->back()->with('error', $status);
+        }
         return redirect()->back()->with('success', 'Hujjat muvaffaqiyatli baholandi!');
     }
 

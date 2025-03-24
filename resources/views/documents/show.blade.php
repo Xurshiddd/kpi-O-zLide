@@ -84,13 +84,12 @@
                 <form method="POST" action="{{ route('document.score') }}">
                     @csrf
                     <input type="hidden" name="document_id" id="documentId">
-
+                    <input type="hidden" value="{{ $user->id }}" name="user_id">
                     <div class="mb-4">
                         <label for="score" class="block text-gray-700 dark:text-gray-200 font-medium">Bahoni kiriting:</label>
                         <input type="number" min="0" max="100" id="score" name="score"
                                class="w-full dark:text-red-800 p-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-400">
                     </div>
-
                     <div class="flex justify-end space-x-2">
                         <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500">Bekor qilish</button>
                         <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Baholash</button>

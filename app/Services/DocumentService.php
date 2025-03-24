@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\Confirmation;
 use App\Models\Criterion;
 use App\Models\Department;
 use App\Models\Document;
@@ -78,6 +79,38 @@ class DocumentService
         return $query;
     }
 
+    public function confirm($request)
+    {
+        try {
+            if ($request->document_id){
+                $doc = Document::find($request->document_id);
+                $old = $doc->score;
+                $doc->update([
+                    'score' => $request->score,
+                ]);
+                Confirmation::create([
+                    'document_id' => $request->document_id,
+                    'user_id' => auth()->id(),
+                    'old_score' => $old,
+                    'after_score' => $request->score,
+                ]);
+            }else {
+                $user = User::find($request->user_id);
+                foreach ($user->documents as $document) {
+                    Confirmation::create([
+                        'document_id' => $document->id,
+                        'user_id' => auth()->id(),
+                        'old_score' => $document->score ? $document->score : 0,
+                        'new_score' => $document->score ? $document->score : 0,
+                    ]);
+                }
+            }
+        }catch (\Exception $exception){
+            \Log::error($exception->getMessage());
+            return false;
+        }
+        return true;
+    }
 
     protected function checkData($type, $path)
     {
