@@ -9,7 +9,15 @@
         </li>
 
         <li class="relative">
-            <h2>Dashboard</h2>
+            <i class="fa-solid fa-bell" style="font-size: 200%"></i>
+            @php
+                use Illuminate\Support\Facades\Auth; $unread = Auth::user()->notifications()->where('is_read', false)->count();
+            @endphp
+            @if($unread > 0)
+                <a href="{{ route('notifications.index') }}" class="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 py-1 rounded-full">
+            {{ $unread }}
+        </a>
+            @endif
         </li>
     </ul>
     <div class="flex items-center gap-4">
@@ -24,13 +32,17 @@
 
         <div class="hs-dropdown relative inline-flex [--placement:bottom-right] sm:[--trigger:hover]">
             <a class="relative hs-dropdown-toggle cursor-pointer align-middle rounded-full">
-                <img class="object-cover w-9 h-9 rounded-full" src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('assets/images/profile/user-1.jpg') }}" alt=""
+                <img class="object-cover w-9 h-9 rounded-full"
+                     src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('assets/images/profile/user-1.jpg') }}"
+                     alt=""
                      aria-hidden="true">
             </a>
-            <div class="card hs-dropdown-menu transition-[opacity,margin] rounded-md duration hs-dropdown-open:opacity-100 opacity-0 mt-2 min-w-max  w-[200px] hidden z-[12] dark:bg-gray-700 text-black dark:text-white"
-                 aria-labelledby="hs-dropdown-custom-icon-trigger">
+            <div
+                class="card hs-dropdown-menu transition-[opacity,margin] rounded-md duration hs-dropdown-open:opacity-100 opacity-0 mt-2 min-w-max  w-[200px] hidden z-[12] dark:bg-gray-700 text-black dark:text-white"
+                aria-labelledby="hs-dropdown-custom-icon-trigger">
                 <div class="card-body p-0 py-2">
-                    <a href="{{ route('profile.index') }}" class="flex gap-2 items-center font-medium px-4 py-1.5 hover:bg-gray-200 text-gray-400">
+                    <a href="{{ route('profile.index') }}"
+                       class="flex gap-2 items-center font-medium px-4 py-1.5 hover:bg-gray-200 text-gray-400">
                         <i class="ti ti-user  text-xl "></i>
                         <p class="text-sm ">My Profile</p>
                     </a>
@@ -38,7 +50,10 @@
                     <div class="px-4 mt-[7px] grid">
                         <form method="post" action="{{ route('logout') }}">
                             @csrf
-                            <button class="btn-outline-primary font-medium text-[15px] w-full hover:bg-blue-600 hover:text-white">Logout</button>
+                            <button
+                                class="btn-outline-primary font-medium text-[15px] w-full hover:bg-blue-600 hover:text-white">
+                                Logout
+                            </button>
                         </form>
                     </div>
 

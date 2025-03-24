@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class, 'user_id');
     }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
 }

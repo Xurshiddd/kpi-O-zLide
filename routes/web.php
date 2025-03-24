@@ -7,12 +7,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CriterionController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Department;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -42,6 +43,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     });
     Route::get('documents-show/{user}', [DocumentController::class, 'show'])->name('user-documents.show');
     Route::post('/document-score', [DocumentController::class, 'score'])->name('document.score');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
 
 });
 

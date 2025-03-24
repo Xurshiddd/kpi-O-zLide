@@ -90,6 +90,7 @@ class UserController extends Controller
         if ($destroyed === false) {
             return redirect()->back()->with('error', 'User delete failed! Please try again.');
         }
+
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

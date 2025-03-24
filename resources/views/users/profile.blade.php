@@ -34,6 +34,8 @@
                     class="py-2 px-4 border-b-2 font-medium focus:outline-none">Hujjatlar</button>
             <button @click="tab = 'settings'" :class="tab === 'settings' ? 'border-blue-500 text-blue-400' : 'text-white-400'"
                     class="py-2 px-4 border-b-2 font-medium focus:outline-none">Sozlamalar</button>
+            <button @click="tab = 'messages'" :class="tab === 'messages' ? 'border-blue-500 text-blue-400' : 'text-white-400'"
+                    class="py-2 px-4 border-b-2 font-medium focus:outline-none">Xabarlar</button>
         </div>
 
         <!-- Foydalanuvchi Ma'lumotlari -->
@@ -134,6 +136,22 @@
                     </button>
                 </div>
             </form>
+        </div>
+        <div x-show="tab === 'messages'" class="p-6">
+            <h2>Bildirishnomalar</h2>
+            <ul>
+                @foreach($notifications as $notification)
+                    <li class="{{ $notification->is_read ? 'text-gray-500' : 'text-black' }}">
+                        {{ $notification->message }} - {{ $notification->created_at->diffForHumans() }}
+                    </li>
+                @endforeach
+            </ul>
+
+            <form method="POST" action="{{ route('notifications.read') }}">
+                @csrf
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded">Hammasini o‘qildi deb belgilash</button>
+            </form>
+
         </div>
     </div>
 @endsection

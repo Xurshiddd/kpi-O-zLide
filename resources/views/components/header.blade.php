@@ -23,7 +23,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base  flex items-center relative  rounded-md text-gray-500  w-full" href="#"
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base  flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('dashboard') }}"
                     >
                         <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Dashboard</span>
                     </a>
@@ -104,10 +104,8 @@
                     <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
                     <span class="text-xs text-gray-400 font-semibold">Tekshiruv</span>
                 </li>
-
                 <li class="sidebar-item">
-                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="#"
-                    >
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor">
                             <path d="M8 9h8"></path>
                             <path d="M8 13h6"></path>

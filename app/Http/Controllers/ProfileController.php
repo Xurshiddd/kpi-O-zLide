@@ -16,9 +16,10 @@ class ProfileController extends Controller
 {
     public function index()
     {
+        $notifications = Auth::user()->notifications()->latest()->get();
         $regions = Region::all();
         $user = User::with(['documents.criterion'])->find(Auth::id());
-        return view('users.profile', compact('user', 'regions'));
+        return view('users.profile', compact('user', 'regions', 'notifications'));
     }
     public function update(ProfileUpdateRequest $request)
     {

@@ -7,6 +7,7 @@ use App\Models\Confirmation;
 use App\Models\Criterion;
 use App\Models\Department;
 use App\Models\Document;
+use App\Models\Notification;
 use App\Models\User;
 use App\Repositories\DocumentRepository;
 use Illuminate\Http\Request;
@@ -104,6 +105,11 @@ class DocumentService
                         'new_score' => $document->score ? $document->score : 0,
                     ]);
                 }
+                $score = $user->documents->sum('score');
+                Notification::create([
+                    'user_id' => $user->id,
+                    'message' => "Sizning hujjatingiz $score ball bilan baholandi.",
+                ]);
             }
         }catch (\Exception $exception){
             \Log::error($exception->getMessage());
