@@ -10,6 +10,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -45,7 +46,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('/document-score', [DocumentController::class, 'score'])->name('document.score');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
-
+    Route::get('/departments/{id}/users', function ($id){
+        $users = User::where('department_id', $id)->get(['id', 'first_name', 'last_name']);
+        return response()->json($users);
+    });
 });
 
 require __DIR__.'/auth.php';

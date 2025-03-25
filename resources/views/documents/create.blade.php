@@ -29,6 +29,7 @@
                 <h3 class="text-lg font-semibold text-gray-700 mb-2 dark:bg-gray-700 dark:text-white">Hujjatlar</h3>
                 @if(isset($criterion))
                     @foreach($criterion as $criteria)
+                        @if(!$criteria->user_id || $criteria->user_id == auth()->id())  {{-- Agar user_id bo'lmasa yoki auth user bilan bir xil bo'lsa --}}
                         <div class="mb-4 p-3 border rounded-md bg-white shadow-sm ">
                             <h4 class="font-semibold text-gray-800 mb-2">{{ $criteria->name }}</h4>
 
@@ -55,10 +56,12 @@
                                        class="hidden block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
                             </div>
                         </div>
+                        @endif
                     @endforeach
                 @else
                     <h3>Mezonlar mavjud emas</h3>
                 @endif
+
             </div>
 
             <button type="submit" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">

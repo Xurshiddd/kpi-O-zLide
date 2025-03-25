@@ -23,6 +23,7 @@ class CriterionController extends Controller
             'name' => 'required',
             'department_id' => 'required',
             'score' => 'required',
+            'user_id' => 'nullable|exists:users,id',
         ]);
         Criterion::create($request->all());
         return redirect()->route('criterion.index')->with('success', 'Criterion created successfully');

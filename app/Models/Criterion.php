@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Criterion extends Model
 {
-    protected $fillable = ['name','department_id', 'score'];
+    protected $fillable = ['name','department_id', 'score', 'user_id'];
 
     public function department(): BelongsTo
     {

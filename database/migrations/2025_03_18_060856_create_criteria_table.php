@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('score');
             $table->foreignId('department_id')->constrained('departments');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->timestamps();
         });
     }
