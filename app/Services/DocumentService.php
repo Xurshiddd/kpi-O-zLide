@@ -86,6 +86,9 @@ class DocumentService
             if ($request->document_id){
                 $doc = Document::find($request->document_id);
                 $old = $doc->score;
+                if ((int)$old<(int)$request->score){
+                    return redirect()->back()->with('error', 'Siz Eng yuqori balldan baland ball qo\'yolmaysiz');
+                }
                 $doc->update([
                     'score' => $request->score,
                 ]);

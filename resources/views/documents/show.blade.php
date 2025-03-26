@@ -59,7 +59,7 @@
                     <td class="p-2">{{ $document->score }}</td>
                     <td class="p-2">
                         <a href="{{ asset($document->path) }}" target="_blank" class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-700">Ko‘rish</a>
-                        <button onclick="openModal({{ $document->id }}, {{ $document->score }})"
+                        <button onclick="openModal({{ $document->id }}, {{ $document->score }}, {{ $document->criterion->score }})"
                                 class="ml-2 px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-700">
                             Baholash
                         </button>
@@ -85,11 +85,16 @@
                     @csrf
                     <input type="hidden" name="document_id" id="documentId">
                     <input type="hidden" value="{{ $user->id }}" name="user_id">
+
                     <div class="mb-4">
                         <label for="score" class="block text-gray-700 dark:text-gray-200 font-medium">Bahoni kiriting:</label>
+                        <small id="maxScoreText" class="block text-sm text-gray-500 dark:text-gray-400 mb-1">
+                            Maksimal ball: <span id="maxScoreValue"></span>
+                        </small>
                         <input type="number" min="0" max="100" id="score" name="score"
                                class="w-full dark:text-red-800 p-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-400">
                     </div>
+
                     <div class="flex justify-end space-x-2">
                         <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500">Bekor qilish</button>
                         <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Baholash</button>
@@ -102,15 +107,18 @@
 @endsection
 @section('script')
     <script>
-        function openModal(documentId, currentScore) {
+        function openModal(documentId, currentScore, maxScore) {
             document.getElementById('modal').classList.remove('hidden');
             document.getElementById('documentId').value = documentId;
             document.getElementById('score').value = currentScore;
+
+            // Max ballni input va small tagga qo'yish
+            document.getElementById('score').setAttribute('max', maxScore);
+            document.getElementById('maxScoreValue').textContent = maxScore;
         }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
         }
-
     </script>
 @endsection

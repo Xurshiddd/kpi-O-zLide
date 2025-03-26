@@ -28,11 +28,6 @@ class DocumentController extends Controller
         $users = $this->documentService->index($request);
         return view('documents.index', compact('users', 'categories', 'departments'));
     }
-    public function getDepartmentsByCategory($categoryId)
-    {
-        $departments = Department::where('category_id', $categoryId)->get();
-        return response()->json($departments);
-    }
 
     // 📌 AJAX: Departament bo‘yicha foydalanuvchilarni olish
     public function getUsersByDepartment($departmentId)
