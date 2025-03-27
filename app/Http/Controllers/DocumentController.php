@@ -96,4 +96,9 @@ class DocumentController extends Controller
     {
         //
     }
+
+    public function exportUsersDocx()
+    {
+        return $this->documentService->exportUsersDocx();
+    }
 }

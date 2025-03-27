@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
+Route::get('/admin/users/export', [DocumentController::class, 'exportUsersDocx'])->name('users.export.docx');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

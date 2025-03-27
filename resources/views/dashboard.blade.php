@@ -3,6 +3,11 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-6 gap-x-0 lg:gap-y-0 gap-y-6">
         <div class="col-span-2">
             <div class="card">
+                <a href="{{ route('users.export.docx') }}"
+                   class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Foydalanuvchilarni Yuklab Olish
+                </a>
+
                 <div class="card-body">
                     <div class="flex  justify-between mb-5">
                         <h4 class="text-gray-500 text-lg font-semibold sm:mb-0 mb-2">Profit & Expenses</h4>

@@ -2,16 +2,17 @@
 
 namespace App\Services;
 
-use App\Models\Category;
 use App\Models\Confirmation;
 use App\Models\Criterion;
-use App\Models\Department;
 use App\Models\Document;
 use App\Models\Notification;
 use App\Models\User;
 use App\Repositories\DocumentRepository;
-use Illuminate\Http\Request;
-
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Style\Table;
+use PhpOffice\PhpWord\Style\Cell;
+use PhpOffice\PhpWord\Style\Font;
 class DocumentService
 {
     public function __construct(public DocumentRepository $documentRepository){}
@@ -131,5 +132,67 @@ class DocumentService
         }else {
             return $path;
         }
+    }
+    public function exportUsersDocx()
+    {
+//        $users = User::with('department') // Department bilan bog'lanadi
+//        ->withSum('documents as total_score', 'score') // Umumiy ball
+//        ->get();
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+
+// ✅ Shapka qo'shish
+        $section->addText(
+            "O‘zLiDeP Siyosiy Kengashi Ijroiya qo‘mitasi apparati hamda hududiy va\ntuman (shahar) Kengashlari mas’ul xodimlarining faoliyati\nsamaradorligini baholash va ularni munosib rag‘batlantirish bo‘yicha\nkomissiya yig‘ilishi qaroriga\n1-ilova",
+            ['name' => 'Times New Roman', 'size' => 14, 'italic' => true, 'alignment' => 'center']
+        );
+        $section->addTextBreak(1);
+
+        $section->addText(
+            "O‘zLiDeP Siyosiy Kengashi Ijroiya qo‘mitasi apparati xodimlarining\nKPI natijalariga ko‘ra mart oyi yakunlari munosabati bilan\nrag‘batlantiruvchi tо‘g‘risida\n\nRЎYXAT",
+            ['name' => 'Times New Roman', 'size' => 14, 'bold' => true, 'alignment' => 'center']
+        );
+        $section->addTextBreak(1);
+
+// ✅ Jadval uchun uslub sozlash
+        $styleTable = [
+            'borderSize' => 6,
+            'borderColor' => '000000',
+            'cellMargin' => 80,
+        ];
+        $phpWord->addTableStyle('UserTable', $styleTable);
+
+// ✅ Jadval yaratish
+        $table = $section->addTable('UserTable');
+
+// Sarlavha qatori
+        $table->addRow();
+        $table->addCell(500, ['bgColor' => 'FFFF00'])->addText("№", ['bold' => true]);
+        $table->addCell(4000, ['bgColor' => 'FFFF00'])->addText("F.I.SH, tug'ilgan yili va joyi, millati", ['bold' => true]);
+        $table->addCell(3000, ['bgColor' => 'FFFF00'])->addText("Lavozimi", ['bold' => true]);
+        $table->addCell(1500, ['bgColor' => 'FFFF00'])->addText("Umumiy ball", ['bold' => true]);
+        $table->addCell(1500, ['bgColor' => 'FFFF00'])->addText("Foizda (%)", ['bold' => true]);
+
+// ✅ User ma'lumotlari (bazadan oling)
+        $users = [
+            ['name' => 'Admin Admin', 'position' => '1-bo\'lim', 'score' => 86, 'percentage' => 20],
+            ['name' => 'Rajah Bray', 'position' => '1-bo\'lim', 'score' => 75, 'percentage' => 18],
+            ['name' => 'Kitra Le', 'position' => '2-bo\'lim', 'score' => 65, 'percentage' => 15],
+        ];
+
+// ✅ Har bir user uchun yangi qator qo'shish
+        $counter = 1;
+        foreach ($users as $user) {
+            $table->addRow();
+            $table->addCell(500)->addText($counter++);
+            $table->addCell(4000)->addText($user['name']);
+            $table->addCell(3000)->addText($user['position']);
+            $table->addCell(1500)->addText($user['score']);
+            $table->addCell(1500)->addText($user['percentage']);
+        }
+
+// ✅ Faylni saqlash
+        $savePath = public_path('uploads/dock/Foydalanuvchilar_Malumoti.docx');
+        $phpWord->save($savePath, 'Word2007', true);
     }
 }
