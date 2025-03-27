@@ -28,7 +28,7 @@
                         <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Dashboard</span>
                     </a>
                 </li>
-
+                @canany(['read', 'update', 'delete'])
                 <li class="text-xs font-bold mb-4 mt-6">
 
                     <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
@@ -88,24 +88,36 @@
                         </svg><span>Bo'lim</span>
                     </a>
                 </li>
+                @endcanany
+
+                @can('create')
+                    <li class="text-xs font-bold mb-4 mt-8">
+                        <i class="ti ti-dots nav-small-cap-icon  text-lg hidden text-center"></i>
+                        <span class="text-xs text-gray-400 font-semibold">Hujjat</span>
+                    </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('documents.index') }}"
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('documents.create') }}"
                     >
                         <i class="fa-solid fa-file-contract"></i><span>Xujjatlar</span>
                     </a>
                 </li>
+                @endcan
+                @canany(['edit', 'index'])
                 <li class="sidebar-item">
                     <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('criterion.index') }}">
                         <i class="fa-solid fa-pen-nib"></i>
                         <span>Mezon</span>
                     </a>
                 </li>
+                @endcanany
+                @canany(['assessment', 'confirmation'])
                 <li class="text-xs font-bold mb-4 mt-8">
                     <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
                     <span class="text-xs text-gray-400 font-semibold">Tekshiruv</span>
                 </li>
+
                 <li class="sidebar-item">
-                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="#">
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('documents.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor">
                             <path d="M8 9h8"></path>
                             <path d="M8 13h6"></path>
@@ -114,6 +126,7 @@
                         </svg> <span>Tekshiruv</span>
                     </a>
                 </li>
+                @endcanany
             </ul>
         </nav>
     </div>

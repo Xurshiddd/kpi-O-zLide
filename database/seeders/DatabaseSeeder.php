@@ -41,14 +41,14 @@ class DatabaseSeeder extends Seeder
                 'category_id' => 1
             ]);
         }
-        $permissons = ['create', 'read', 'update', 'delete'];
+        $permissons = ['create', 'read', 'update', 'delete','confirmation', 'assessment'];
         foreach ($permissons as $permission) {
             Permission::create([
                 'name' => $permission
             ]);
         }
         $adminRole = Role::create(['name' => 'Admin']);
-        $adminRole->syncPermissions(Permission::all());
+        $adminRole->syncPermissions(['read', 'update', 'delete']);
         $user = User::create([
             'first_name' => 'admin',
             'last_name' => 'admin',
@@ -60,5 +60,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123456'),
         ]);
         $user->assignRole('Admin');
+        $inspector = Role::create(['name' => 'Inspector']);
+        $Appraiser = Role::create(['name' => 'Appraiser']);
+        $worker = Role::create(['name' => 'Worker']);
+        $inspector->syncPermissions(['confirmation', 'assessment']);
+        $Appraiser->givePermissionTo('assessment');
+        $worker->givePermissionTo('create');
     }
 }

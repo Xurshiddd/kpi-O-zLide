@@ -3,21 +3,25 @@
 @section('content')
     <div class="container mx-auto p-6">
         @if(session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4 relative" role="alert">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4 relative"
+                 role="alert">
                 <span class="block sm:inline">{{ session('success') }}</span>
-                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3"
+                        onclick="this.parentElement.style.display='none';">
                     ✖
                 </button>
             </div>
         @endif
-            @if(session('error'))
-                <div class="bg-green-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4 relative" role="alert">
-                    <span class="block sm:inline">{{ session('error') }}</span>
-                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
-                        ✖
-                    </button>
-                </div>
-            @endif
+        @if(session('error'))
+            <div class="bg-green-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4 relative"
+                 role="alert">
+                <span class="block sm:inline">{{ session('error') }}</span>
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3"
+                        onclick="this.parentElement.style.display='none';">
+                    ✖
+                </button>
+            </div>
+        @endif
         <h2 class="text-2xl font-semibold mb-4  dark:bg-dark text-black dark:text-white bg-white-300">Foydalanuvchilar
             ro'yxati</h2>
 
@@ -84,16 +88,20 @@
                                class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                                 Kirish
                             </a>
+                            @can('confirmation')
                             @if($user->documents->sum('score'))
-                            <form action="{{ route('document.score') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                <button type="submit"
-                                        class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                                    Tasdiqlash
-                                </button>
-                            </form>
+
+                                    <form action="{{ route('document.score') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                        <button type="submit"
+                                                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                                            Tasdiqlash
+                                        </button>
+                                    </form>
+
                             @endif
+                            @endcan
                         </td>
                     </tr>
                 @empty

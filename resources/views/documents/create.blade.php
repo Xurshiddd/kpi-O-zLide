@@ -28,39 +28,77 @@
             <div class="bg-gray-50 border border-gray-200 rounded-md p-4 dark:bg-gray-700 text-black dark:text-white">
                 <h3 class="text-lg font-semibold text-gray-700 mb-2 dark:bg-gray-700 dark:text-white">Hujjatlar</h3>
                 @if(isset($criterion))
-                    @foreach($criterion as $criteria)
-                        @if(!$criteria->user_id || $criteria->user_id == auth()->id())  {{-- Agar user_id bo'lmasa yoki auth user bilan bir xil bo'lsa --}}
-                        <div class="mb-4 p-3 border rounded-md bg-white shadow-sm ">
-                            <h4 class="font-semibold text-gray-800 mb-2">{{ $criteria->name }}</h4>
+                    @php
+                        $filtered = $criterion->filter(function($item) {
+                            return $item->user_id !== null && $item->user_id == auth()->id();
+                        });
+                    @endphp
 
-                            <input type="hidden" name="criteria_id[]" value="{{ $criteria->id }}" class="bg-white dark:bg-gray-700 text-black dark:text-white">
+                    @if($filtered->isNotEmpty())
+                        {{-- Faqat user_id mos bo'lgan itemlar --}}
+                        @foreach($filtered as $criteria)
+                            <div class="mb-4 p-3 border rounded-md bg-white shadow-sm ">
+                                <h4 class="font-semibold text-gray-800 mb-2">{{ $criteria->name }}</h4>
 
-                            <div class="flex gap-4 items-center">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="type[{{ $criteria->id }}]" value="file" checked
-                                           class="form-radio" onchange="toggleInput('{{ $criteria->id }}', 'file')">
-                                    <span class="ml-2 text-gray-700">Fayl</span>
-                                </label>
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="type[{{ $criteria->id }}]" value="link"
-                                           class="form-radio" onchange="toggleInput('{{ $criteria->id }}', 'link')">
-                                    <span class="ml-2 text-gray-700">Havola</span>
-                                </label>
+                                <input type="hidden" name="criteria_id[]" value="{{ $criteria->id }}" class="bg-white dark:bg-gray-700 text-black dark:text-white">
+
+                                <div class="flex gap-4 items-center">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="type[{{ $criteria->id }}]" value="file" checked
+                                               class="form-radio" onchange="toggleInput('{{ $criteria->id }}', 'file')">
+                                        <span class="ml-2 text-gray-700">Fayl</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="type[{{ $criteria->id }}]" value="link"
+                                               class="form-radio" onchange="toggleInput('{{ $criteria->id }}', 'link')">
+                                        <span class="ml-2 text-gray-700">Havola</span>
+                                    </label>
+                                </div>
+
+                                <div class="mt-3">
+                                    <input id="fileInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="file"
+                                           class="block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
+                                    <input id="linkInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="url"
+                                           placeholder="Havola kiriting"
+                                           class="hidden block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
+                                </div>
                             </div>
+                        @endforeach
+                    @else
+                        {{-- Agar user_id mos kelmasa, user_id null bo'lgan itemlar --}}
+                        @foreach($criterion->whereNull('user_id') as $criteria)
+                            <div class="mb-4 p-3 border rounded-md bg-white shadow-sm ">
+                                <h4 class="font-semibold text-gray-800 mb-2">{{ $criteria->name }}</h4>
 
-                            <div class="mt-3">
-                                <input id="fileInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="file"
-                                       class="block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
-                                <input id="linkInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="url"
-                                       placeholder="Havola kiriting"
-                                       class="hidden block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
+                                <input type="hidden" name="criteria_id[]" value="{{ $criteria->id }}" class="bg-white dark:bg-gray-700 text-black dark:text-white">
+
+                                <div class="flex gap-4 items-center">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="type[{{ $criteria->id }}]" value="file" checked
+                                               class="form-radio" onchange="toggleInput('{{ $criteria->id }}', 'file')">
+                                        <span class="ml-2 text-gray-700">Fayl</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="type[{{ $criteria->id }}]" value="link"
+                                               class="form-radio" onchange="toggleInput('{{ $criteria->id }}', 'link')">
+                                        <span class="ml-2 text-gray-700">Havola</span>
+                                    </label>
+                                </div>
+
+                                <div class="mt-3">
+                                    <input id="fileInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="file"
+                                           class="block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
+                                    <input id="linkInput{{ $criteria->id }}" name="path[{{ $criteria->id }}]" type="url"
+                                           placeholder="Havola kiriting"
+                                           class="hidden block w-full p-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 text-black dark:text-white">
+                                </div>
                             </div>
-                        </div>
-                        @endif
-                    @endforeach
+                        @endforeach
+                    @endif
                 @else
                     <h3>Mezonlar mavjud emas</h3>
                 @endif
+
 
             </div>
 
