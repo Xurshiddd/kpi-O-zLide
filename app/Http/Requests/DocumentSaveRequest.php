@@ -47,7 +47,7 @@ class DocumentSaveRequest extends FormRequest
                     return;
                 }
 
-                if ($today->day <= 25) {
+                if ($today->day <= 23) {
                     $fail("Hujjat yuklash faqat oyning 26-sanasidan boshlab mumkin.");
                     return;
                 }
@@ -56,7 +56,7 @@ class DocumentSaveRequest extends FormRequest
                 if (!is_null($value)) {
                     if ($type === 'file') {
                         if (!($value instanceof \Illuminate\Http\UploadedFile) ||
-                            !in_array($value->getClientOriginalExtension(), ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'])) {
+                            !in_array($value->getClientOriginalExtension(), ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'txt'])) {
                             $fail("{$criteriaId}-mezon uchun noto‘g‘ri fayl yuklandi.");
                         }
                     }

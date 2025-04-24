@@ -41,7 +41,7 @@
         <!-- Foydalanuvchi Ma'lumotlari -->
         <div x-show="tab === 'info'" class="p-6">
             <div class="flex items-center space-x-6">
-                <img src="{{ asset($user->photo) }}" alt="User Photo"
+                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('assets/images/profile/user-3.jpg') }}" alt="User Photo"
                      class="w-32 h-32 object-cover rounded-full border">
                 <div>
                     <h2 class="text-2xl font-bold">{{ $user->first_name }} {{ $user->last_name }}</h2>

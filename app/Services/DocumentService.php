@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Notification;
 use App\Models\User;
 use App\Repositories\DocumentRepository;
+use DB;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Style\Table;
@@ -37,8 +38,12 @@ class DocumentService
                     ->orWhere('last_name', 'like', "%{$request->search}%");
             });
         }
+        $ids = DB::table('users')
+        ->join('model_has_roles as m', 'm.model_id', '=', 'users.id')
+        ->whereIn('m.role_id', [1,2,3])
+        ->pluck('id');
 
-        $users = $users->with(['department', 'documents'])->whereNotIn('id', [1])->paginate(15);
+        $users = $users->with(['department', 'documents'])->whereNotIn('id', $ids->toArray())->paginate(15);
         return $users;
     }
 

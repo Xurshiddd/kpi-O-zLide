@@ -28,7 +28,7 @@
                         <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                @canany(['read', 'update', 'delete'])
+                @canany(abilities: ['read', 'update', 'delete'])
                 <li class="text-xs font-bold mb-4 mt-6">
 
                     <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
@@ -102,7 +102,7 @@
                     </a>
                 </li>
                 @endcan
-                @canany(['edit', 'index'])
+                @canany(['read', 'update', 'delete'])
                 <li class="sidebar-item">
                     <a class="sidebar-link gap-3 py-2.5 my-1 text-base   flex items-center relative  rounded-md text-gray-500  w-full" href="{{ route('criterion.index') }}">
                         <i class="fa-solid fa-pen-nib"></i>
